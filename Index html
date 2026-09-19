@@ -1,1 +1,83 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الضياء - بوابة أولياء الأمور</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: #f1f5f9; margin: 0; padding: 15px; direction: rtl; }
+        .container { max-width: 650px; margin: 0 auto; background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .header { text-align: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 20px; }
+        .header h2 { margin: 0; color: #1e293b; font-size: 20px; }
+        .info-card { background: #f8fafc; border-right: 4px solid #2563eb; padding: 12px; border-radius: 6px; margin-bottom: 20px; font-size: 14px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; text-align: center; }
+        .stat-box { background: #eff6ff; padding: 12px; border-radius: 8px; }
+        .stat-val { font-size: 18px; font-weight: bold; color: #2563eb; }
+        .stat-lbl { font-size: 12px; color: #64748b; margin-top: 4px; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 10px; }
+        th, td { padding: 10px; text-align: right; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f8fafc; color: #475569; }
+        .status { color: #16a34a; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>نظام الضياء - بوابة أولياء الأمور</h2>
+    </div>
+
+    <div class="info-card">
+        <strong>اسم الطالب:</strong> أحمد محمد علي <br>
+        <strong>الصف:</strong> الرابع الابتدائي
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-box"><div class="stat-val">95%</div><div class="stat-lbl">المعدل العام</div></div>
+        <div class="stat-box"><div class="stat-val">1</div><div class="stat-lbl">أيام الغياب</div></div>
+        <div class="stat-box"><div class="stat-val">ممتاز</div><div class="stat-lbl">السلوك</div></div>
+    </div>
+
+    <h3>سجل الدرجات والتقييمات</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>المادة</th>
+                <th>الشهر الأول</th>
+                <th>الشهر الثاني</th>
+                <th>التقييم</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>التربية الإسلامية</td>
+                <td>98</td>
+                <td>95</td>
+                <td><span class="status">ممتاز</span></td>
+            </tr>
+            <tr>
+                <td>اللغة العربية</td>
+                <td>92</td>
+                <td>94</td>
+                <td><span class="status">ممتاز</span></td>
+            </tr>
+            <tr>
+                <td>الرياضيات</td>
+                <td>90</td>
+                <td>96</td>
+                <td><span class="status">ممتاز</span></td>
+            </tr>
+            <tr>
+                <td>العلوم</td>
+                <td>95</td>
+                <td>92</td>
+                <td><span class="status">ممتاز</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
