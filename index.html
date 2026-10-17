@@ -1,83 +1,412 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام الضياء - بوابة أولياء الأمور</title>
+    <title>منصة إدخال وإدارة البيانات</title>
+    <!-- استدعاء خط وكتب أو خطوط عربية حديثة مع أيقونات FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        body { background-color: #f1f5f9; margin: 0; padding: 15px; direction: rtl; }
-        .container { max-width: 650px; margin: 0 auto; background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .header { text-align: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 20px; }
-        .header h2 { margin: 0; color: #1e293b; font-size: 20px; }
-        .info-card { background: #f8fafc; border-right: 4px solid #2563eb; padding: 12px; border-radius: 6px; margin-bottom: 20px; font-size: 14px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; text-align: center; }
-        .stat-box { background: #eff6ff; padding: 12px; border-radius: 8px; }
-        .stat-val { font-size: 18px; font-weight: bold; color: #2563eb; }
-        .stat-lbl { font-size: 12px; color: #64748b; margin-top: 4px; }
-        table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 10px; }
-        th, td { padding: 10px; text-align: right; border-bottom: 1px solid #e2e8f0; }
-        th { background: #f8fafc; color: #475569; }
-        .status { color: #16a34a; font-weight: bold; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #f4f7fa;
+            color: #333;
+        }
+
+        /* شريط التنقل العلوي */
+        header {
+            background-color: #102a43;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            background-color: #0098ff;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .logo-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            color: #9fb3c8;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            background-color: #0098ff;
+        }
+
+        .btn-primary:hover {
+            background-color: #007acc;
+        }
+
+        /* المحتوى الرئيسي */
+        .container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* بطاقات الإحصائيات العلوية */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #eaeaea;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #627d98;
+            font-size: 14px;
+        }
+
+        .stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #102a43;
+        }
+
+        /* قسم اللوحات الرئيسية (جدول البيانات + نموذج الإدخال) */
+        .main-content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .main-content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            border: 1px solid #eaeaea;
+        }
+
+        /* قسم الجدول والبحث */
+        .table-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 35px;
+            border: 1px solid #d9d9d9;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8c8c8c;
+        }
+
+        .filter-select {
+            padding: 10px 15px;
+            border: 1px solid #d9d9d9;
+            border-radius: 8px;
+            font-size: 13px;
+            background: white;
+            outline: none;
+        }
+
+        .btn-danger-light {
+            background-color: #fff1f0;
+            color: #cf1322;
+            border: 1px solid #ffa39e;
+        }
+
+        .btn-danger-light:hover {
+            background-color: #ffccc7;
+        }
+
+        /* حالة جدول البيانات الفارغ */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #8c8c8c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            color: #bfbfbf;
+        }
+
+        /* نموذج إدخال بيانات جديدة */
+        .form-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #102a43;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .form-group label span {
+            color: #ff4d4f;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d9d9d9;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #0098ff;
+        }
+
+        .form-text-muted {
+            font-size: 11px;
+            color: #8c8c8c;
+            margin-top: 4px;
+            display: block;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h2>نظام الضياء - بوابة أولياء الأمور</h2>
-    </div>
+    <!-- شريط التنقل العلوي -->
+    <header>
+        <div class="logo-section">
+            <div class="logo-icon">
+                <i class="fa-solid fa-database"></i>
+            </div>
+            <div class="logo-text">
+                <h1>منصة إدخال وإدارة البيانات</h1>
+                <p>تطبيق ويب لإدخال وحفظ وحماية البيانات المحلية</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn"><i class="fa-solid fa-file-arrow-down"></i> استيراد بيانات</button>
+            <button class="btn"><i class="fa-solid fa-file-csv"></i> تصدير (CSV)</button>
+            <button class="btn"><i class="fa-solid fa-file-code"></i> تصدير (JSON)</button>
+        </div>
+    </header>
 
-    <div class="info-card">
-        <strong>اسم الطالب:</strong> أحمد محمد علي <br>
-        <strong>الصف:</strong> الرابع الابتدائي
-    </div>
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
 
-    <div class="stats-grid">
-        <div class="stat-box"><div class="stat-val">95%</div><div class="stat-lbl">المعدل العام</div></div>
-        <div class="stat-box"><div class="stat-val">1</div><div class="stat-lbl">أيام الغياب</div></div>
-        <div class="stat-box"><div class="stat-val">ممتاز</div><div class="stat-lbl">السلوك</div></div>
-    </div>
+        <!-- إحصائيات سريعة -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span>إجمالي السجلات</span>
+                    <div class="stat-icon" style="background: #e6f7ff; color: #1890ff;"><i class="fa-solid fa-list"></i></div>
+                </div>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span>الأقسام والفئات</span>
+                    <div class="stat-icon" style="background: #f9f0ff; color: #722ed1;"><i class="fa-solid fa-layer-group"></i></div>
+                </div>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span>أُضيف اليوم</span>
+                    <div class="stat-icon" style="background: #f6ffed; color: #52c41a;"><i class="fa-solid fa-calendar-days"></i></div>
+                </div>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span>حالة التخزين</span>
+                    <div class="stat-icon" style="background: #fffbe6; color: #faad14;"><i class="fa-solid fa-shield-halved"></i></div>
+                </div>
+                <div class="stat-value" style="font-size: 18px; color: #52c41a; margin-top: 5px;">محلي آمن</div>
+            </div>
+        </div>
 
-    <h3>سجل الدرجات والتقييمات</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>المادة</th>
-                <th>الشهر الأول</th>
-                <th>الشهر الثاني</th>
-                <th>التقييم</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>التربية الإسلامية</td>
-                <td>98</td>
-                <td>95</td>
-                <td><span class="status">ممتاز</span></td>
-            </tr>
-            <tr>
-                <td>اللغة العربية</td>
-                <td>92</td>
-                <td>94</td>
-                <td><span class="status">ممتاز</span></td>
-            </tr>
-            <tr>
-                <td>الرياضيات</td>
-                <td>90</td>
-                <td>96</td>
-                <td><span class="status">ممتاز</span></td>
-            </tr>
-            <tr>
-                <td>العلوم</td>
-                <td>95</td>
-                <td>92</td>
-                <td><span class="status">ممتاز</span></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+        <!-- شبكة العرض (الجدول والنموذج) -->
+        <div class="main-content-grid">
+            
+            <!-- جدول المعاملات والبحث -->
+            <div class="card">
+                <div class="table-toolbar">
+                    <button class="btn btn-danger-light"><i class="fa-solid fa-trash-can"></i> مسح الكل</button>
+                    <select class="filter-select">
+                        <option>ملفات ومعاملات</option>
+                    </select>
+                    <div class="search-box">
+                        <input type="text" placeholder="بحث في البيانات...">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+
+                <!-- جدول أو حالة فارغة -->
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fa-regular fa-folder-open"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 16px; color: #595959; margin-bottom: 5px;">لا توجد بيانات حالياً</h3>
+                        <p style="font-size: 12px;">قم بإضافة بيانات جديدة باستخدام النموذج المجاور.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- نموذج إدخال بيانات جديدة -->
+            <div class="card">
+                <div class="form-title">
+                    <i class="fa-solid fa-circle-plus" style="color: #0098ff;"></i> إدخال بيانات جديدة
+                </div>
+                
+                <form>
+                    <div class="form-group">
+                        <label>العنوان / الاسم <span>*</span></label>
+                        <input type="text" class="form-control" placeholder="مثال: سجل درجات الطالب أو اسم الملف">
+                    </div>
+
+                    <div class="form-group">
+                        <label>الفئة / التصنيف <span>*</span></label>
+                        <select class="form-control">
+                            <option>اختر القسم...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>التاريخ <span>*</span></label>
+                        <input type="date" class="form-control" value="2026-10-17">
+                    </div>
+
+                    <div class="form-group">
+                        <label>رابط أو اسم المرفق/الملف (اختياري)</label>
+                        <input type="text" class="form-control" placeholder="مثال: report_2026.pdf أو رابط">
+                    </div>
+
+                    <div class="form-group">
+                        <label>الملاحظات / التفاصيل</label>
+                        <textarea class="form-control" rows="3" placeholder="اكتب التفاصيل هنا..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px; margin-top: 10px;">
+                        <i class="fa-solid fa-plus"></i> حفظ وإضافة البيانات
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 </html>
